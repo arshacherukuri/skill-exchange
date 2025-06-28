@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SkillXchange - Connect, Learn, Grow</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        .hero {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons a {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .hero-buttons a:hover {
+            background-color: #0056b3;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .features-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .feature-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-box i {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .feature-box h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.9em;
+        }
+
+        .profile-list-container {
+            display: none;
+            padding: 20px;
+        }
+
+        .profile-list-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .profiles {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+
+        .profiles::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .profiles::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border-radius: 4px;
+        }
+
+        .profiles::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .profile-card {
+            background: #fff;
+            border: none;
+            border-radius: 15px;
+            width: 320px;
+            flex: 0 0 auto;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-image {
+            background: #eee;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #007bff;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-details h3 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .skills-section h4 {
+            margin: 10px 0 5px;
+            font-size: 1.1em;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skills-list li {
+            background: #f0f0f0;
+            margin: 0 5px 5px 0;
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.95em;
+        }
+
+        .language-exchange-container {
+            display: none;
+            padding: 20px;
+        }
+
+        .language-exchange-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .section {
+            display: none;
+        }
+
+        #home-section {
+            display: block;
+        }
+
+        #peer-to-peer-section {
+            padding: 20px;
+        }
+
+        #peer-to-peer-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #007BFF;
+        }
+
+        .manage-profile-section {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .manage-profile-section h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .profile-form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        .profile-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-form input[type="text"],
+        .profile-form textarea {
+            width: 300px;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .profile-form select {
+            width: 300px;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .profile-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .profile-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-form .delete-btn {
+            background-color: #ff4444;
+        }
+
+        .profile-form .delete-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .create-profile-section {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .create-profile-section h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .contact-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .contact-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .contact-box h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .contact-box p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .contact-box .edit-form {
+            display: none;
+            text-align: left;
+        }
+
+        .contact-box .edit-form input,
+        .contact-box .edit-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .contact-box button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .contact-box button:hover {
+            background-color: #0056b3;
+        }
+
+        .contact-box .save-btn {
+            background-color: #28a745;
+        }
+
+        .contact-box .save-btn:hover {
+            background-color: #218838;
+        }
+
+        .match-banner {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .view-details-btn {
+            display: block;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px auto 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SkillXchange</div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('home-section')">Home</a></li>
+                <li><a href="#" onclick="showSection('skill-exchange-section')">Skill Exchange</a></li>
+                <li><a href="#" onclick="showSection('language-exchange-section')">Language Exchange</a></li>
+                <li><a href="#" onclick="showSection('peer-to-peer-section')">Peer-to-Peer Tutoring</a></li>
+                <li><a href="#" onclick="showSection('manage-profile-section')">Manage Profile</a></li>
+                <li><a href="#" onclick="showSection('create-profile-section')">Create Profile</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home-section" class="section">
+            <div class="hero">
+                <h1>Welcome, <span id="user-name"></span>!</h1>
+                <p>Join our community to exchange skills, practice languages, and receive personalized tutoring.</p>
+                <div class="hero-buttons">
+                    <a href="#" onclick="showSection('manage-profile-section')">Manage Profile</a>
+                    <a href="#" onclick="showSection('create-profile-section')">Create Profile</a>
+                </div>
+            </div>
+            <div class="features-container">
+                <div class="feature-box" onclick="showSection('skill-exchange-section')">
+                    <i style="font-family: sans-serif; font-style: normal;">⚒</i> <h3>Skill Exchange</h3>
+                    <p>Share your expertise and learn new skills from peers.</p>
+                </div>
+                <div class="feature-box" onclick="showSection('language-exchange-section')">
+                    <i style="font-family: sans-serif; font-style: normal;">🌍</i> <h3>Language Exchange</h3>
+                    <p>Practice languages with native speakers and expand your horizons.</p>
+                </div>
+                <div class="feature-box" onclick="showSection('peer-to-peer-section')">
+                    <i style="font-family: sans-serif; font-style: normal;">👨‍🏫</i> <h3>Peer-to-Peer Tutoring</h3>
+                    <p>Get personalized help from knowledgeable peers in various subjects.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skill-exchange-section" class="section profile-list-container">
+            <h2>Skill Exchange Profiles</h2>
+            <div class="profiles" id="skill-profiles"></div>
+        </section>
+
+        <section id="language-exchange-section" class="section language-exchange-container">
+            <h2>Language Exchange Profiles</h2>
+            <div class="language-exchange-profiles profiles" id="language-profiles"></div>
+        </section>
+
+        <section id="peer-to-peer-section" class="section">
+            <h2>Peer-to-Peer Tutoring Profiles</h2>
+            <div class="peer-to-peer-profiles profiles" id="peer-profiles"></div>
+        </section>
+
+        <section id="manage-profile-section" class="section manage-profile-section">
+            <h2>Manage Profile</h2>
+            <div class="profile-form">
+                <div id="manage-error-message" class="error-message"></div>
+                <div id="manage-success-message" class="success-message"></div>
+                <label for="select-profile">Select Profile:</label>
+                <select id="select-profile" onchange="loadSelectedProfile()">
+                    <option value="">-- Select a Profile --</option>
+                </select>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" value="" readonly>
+                <label for="contact">Contact Number:</label>
+                <input type="text" id="contact" name="contact" value="">
+                <label for="skills_offered">Skills You Offer (comma-separated):</label>
+                <input type="text" id="skills_offered" name="skills_offered" value="">
+                <label for="skills_wanted">Skills You Want to Learn (comma-separated):</label>
+                <input type="text" id="skills_wanted" name="skills_wanted" value="">
+                <label for="native_language">Native Language:</label>
+                <input type="text" id="native_language" name="native_language" value="">
+                <label for="learning_language">Languages You Are Learning (comma-separated):</label>
+                <input type="text" id="learning_language" name="learning_language" value="">
+                <label for="tutoring_subjects">Tutoring Subjects (comma-separated):</label>
+                <input type="text" id="tutoring_subjects" name="tutoring_subjects" value="">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4"></textarea>
+                <button type="button" onclick="updateProfile()">Update Profile</button>
+                <button type="button" class="delete-btn" onclick="deleteProfile()">Delete Profile</button>
+            </div>
+        </section>
+
+        <section id="create-profile-section" class="section create-profile-section">
+            <h2>Create Your Profile</h2>
+            <div class="profile-form" id="create-profile-form">
+                <div id="error-message" class="error-message"></div>
+                <div id="success-message" class="success-message"></div>
+                <label for="new_name">Name:</label>
+                <input type="text" id="new_name" name="new_name" placeholder="Your Name">
+                <label for="new_email">Email:</label>
+                <input type="text" id="new_email" name="new_email" placeholder="your.email@example.com">
+                <label for="new_contact">Contact Number:</label>
+                <input type="text" id="new_contact" name="new_contact" placeholder="1234567890">
+                <label for="new_skills_offered">Skills You Offer (comma-separated):</label>
+                <input type="text" id="new_skills_offered" name="new_skills_offered" placeholder="e.g., Web Development, Cooking">
+                <label for="new_skills_wanted">Skills You Want to Learn (comma-separated):</label>
+                <input type="text" id="new_skills_wanted" name="new_skills_wanted" placeholder="e.g., Photography, Guitar">
+                <label for="new_native_language">Native Language:</label>
+                <input type="text" id="new_native_language" name="new_native_language" placeholder="Your Native Language">
+                <label for="new_learning_language">Languages You Are Learning (comma-separated):</label>
+                <input type="text" id="new_learning_language" name="new_learning_language" placeholder="e.g., Spanish,French">
+                <label for="new_tutoring_subjects">Tutoring Subjects (comma-separated):</label>
+                <input type="text" id="new_tutoring_subjects" name="new_tutoring_subjects" placeholder="e.g., Math, Science">
+                <label for="new_bio">Bio:</label>
+                <textarea id="new_bio" name="new_bio" rows="4" placeholder="Tell us about yourself"></textarea>
+                <button type="button" onclick="createProfile()">Create Profile</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 SkillXchange. All rights reserved.</p>
+    </footer>
+
+    <div id="contact-overlay" class="contact-overlay">
+        <div class="contact-box">
+            <h3>Contact Details</h3>
+            <div id="contact-view">
+                <p id="contact-name"></p>
+                <p id="contact-email"></p>
+                <p id="contact-number"></p>
+                <p id="contact-bio"></p>
+            </div>
+            <div id="contact-edit" class="edit-form">
+                <label for="edit-name">Name:</label>
+                <input type="text" id="edit-name" name="edit-name">
+                <label for="edit-email">Email:</label>
+                <input type="text" id="edit-email" name="edit-email">
+                <label for="edit-contact">Contact Number:</label>
+                <input type="text" id="edit-contact" name="edit-contact">
+                <label for="edit-bio">Bio:</label>
+                <textarea id="edit-bio" name="edit-bio" rows="4"></textarea>
+                <div id="contact-error" class="error-message"></div>
+            </div>
+            <button id="edit-btn" onclick="toggleEditMode(true)" style="display: none;">Edit</button>
+            <button id="save-btn" class="save-btn" onclick="saveContactChanges()" style="display: none;">Save</button>
+            <button onclick="toggleEditMode(false)">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
